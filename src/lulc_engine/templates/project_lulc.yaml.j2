@@ -1,0 +1,44 @@
+# lulc-engine project configuration
+# Docs: https://github.com/prahaladuk2208-arch/lulc-engine (docs/config-reference.md)
+
+project:
+  name: {{ name }}
+  gee_project_id: {{ gee_project_id }}   # your Google Cloud project with Earth Engine enabled
+
+aoi:
+  # Exactly one of: center_buffer | geojson | ee_asset
+  center_buffer: { lat: 0.0, lon: 35.0, radius_m: 15000 }
+  # geojson: aoi.geojson
+  # ee_asset: projects/{{ gee_project_id }}/assets/aoi
+
+time_points: [2019, 2022, 2024]
+
+# Seasons drive both compositing and phenology features. The first season is the
+# reference; deltas/ratios are computed against it for every other season.
+seasons:
+  - { name: dry, months: [1, 3] }
+  - { name: wet, months: [10, 12] }
+
+classes:
+{%- for code, cname in classes %}
+  {{ code }}: {{ cname }}
+{%- endfor %}
+
+features:
+  indices: [NDVI, SAVI, EVI, NDMI, NBR]
+  texture: { enabled: true, band: NIR, metrics: [entropy, contrast], window: 3 }
+  seasonal: { deltas: true, ratios: true, season_values: true }
+
+training:
+  path: training/training_{year}.geojson
+  class_property: class
+  # Or load a partner organization's Earth Engine asset instead of a local file:
+  # ee_asset: projects/partner-project/assets/training_{year}
+
+classifier:
+  candidates: [RF, GBT, SVM]
+  # feature_selection: selected_features_{year}.json   (created after `lulc analyze`)
+
+export:
+  target: drive
+  folder: LULC_Outputs

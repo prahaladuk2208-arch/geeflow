@@ -1,0 +1,29 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    { "type": "Feature", "properties": { "class": 0, "label": "Forest" },
+      "geometry": { "type": "Polygon", "coordinates": [[[37.235, -0.145], [37.241, -0.145], [37.241, -0.139], [37.235, -0.139], [37.235, -0.145]]] } },
+    { "type": "Feature", "properties": { "class": 0, "label": "Forest" },
+      "geometry": { "type": "Polygon", "coordinates": [[[37.262, -0.108], [37.268, -0.108], [37.268, -0.102], [37.262, -0.102], [37.262, -0.108]]] } },
+    { "type": "Feature", "properties": { "class": 0, "label": "Forest" },
+      "geometry": { "type": "Polygon", "coordinates": [[[37.301, -0.062], [37.307, -0.062], [37.307, -0.056], [37.301, -0.056], [37.301, -0.062]]] } },
+    { "type": "Feature", "properties": { "class": 1, "label": "Agriculture" },
+      "geometry": { "type": "Polygon", "coordinates": [[[37.205, -0.245], [37.211, -0.245], [37.211, -0.239], [37.205, -0.239], [37.205, -0.245]]] } },
+    { "type": "Feature", "properties": { "class": 1, "label": "Agriculture" },
+      "geometry": { "type": "Polygon", "coordinates": [[[37.248, -0.262], [37.254, -0.262], [37.254, -0.256], [37.248, -0.256], [37.248, -0.262]]] } },
+    { "type": "Feature", "properties": { "class": 1, "label": "Agriculture" },
+      "geometry": { "type": "Polygon", "coordinates": [[[37.352, -0.238], [37.358, -0.238], [37.358, -0.232], [37.352, -0.232], [37.352, -0.238]]] } },
+    { "type": "Feature", "properties": { "class": 2, "label": "Water" },
+      "geometry": { "type": "Polygon", "coordinates": [[[37.404, -0.156], [37.408, -0.156], [37.408, -0.152], [37.404, -0.152], [37.404, -0.156]]] } },
+    { "type": "Feature", "properties": { "class": 2, "label": "Water" },
+      "geometry": { "type": "Polygon", "coordinates": [[[37.298, -0.199], [37.301, -0.199], [37.301, -0.196], [37.298, -0.196], [37.298, -0.199]]] } },
+    { "type": "Feature", "properties": { "class": 2, "label": "Water" },
+      "geometry": { "type": "Polygon", "coordinates": [[[37.365, -0.091], [37.368, -0.091], [37.368, -0.088], [37.365, -0.088], [37.365, -0.091]]] } },
+    { "type": "Feature", "properties": { "class": 3, "label": "Built-up" },
+      "geometry": { "type": "Polygon", "coordinates": [[[37.278, -0.272], [37.284, -0.272], [37.284, -0.266], [37.278, -0.266], [37.278, -0.272]]] } },
+    { "type": "Feature", "properties": { "class": 3, "label": "Built-up" },
+      "geometry": { "type": "Polygon", "coordinates": [[[37.322, -0.284], [37.328, -0.284], [37.328, -0.278], [37.322, -0.278], [37.322, -0.284]]] } },
+    { "type": "Feature", "properties": { "class": 3, "label": "Built-up" },
+      "geometry": { "type": "Polygon", "coordinates": [[[37.196, -0.178], [37.202, -0.178], [37.202, -0.172], [37.196, -0.172], [37.196, -0.178]]] } }
+  ]
+}

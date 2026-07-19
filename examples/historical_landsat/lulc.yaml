@@ -1,0 +1,37 @@
+# Example: binary classification across Landsat eras (MSS -> TM -> OLI).
+# Demonstrates automatic sensor-era switching: 1978 resolves to Landsat MSS at 60 m
+# (merged sensors, +/- 2 yr search window), 1995 to Landsat 5 TM at 30 m, 2010 to
+# Landsat 5/7 at 30 m. Demo AOI: foothills west of a mid-size city; replace with yours.
+
+project:
+  name: historical-landsat-demo
+  gee_project_id: my-gee-project   # <-- change to your GEE-enabled Cloud project
+
+aoi:
+  center_buffer: { lat: 40.0, lon: -105.35, radius_m: 20000 }
+
+time_points: [1978, 1995, 2010]
+
+# A single season keeps the oldest archives usable (MSS scenes are sparse);
+# with one season there are simply no cross-season features.
+seasons:
+  - { name: summer, months: [6, 8] }
+
+classes:
+  0: Vegetated
+  1: Non-Vegetated
+
+features:
+  indices: [NDVI, SAVI, GreenRed]
+  texture: { enabled: true, band: NIR, exclude_eras: [mss] }
+  seasonal: { deltas: false, ratios: false, season_values: false }
+
+training:
+  path: training/training_{year}.geojson
+
+classifier:
+  candidates: [RF, GBT]
+
+export:
+  target: drive
+  folder: LULC_Outputs

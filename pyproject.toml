@@ -1,0 +1,69 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "lulc-engine"
+version = "0.1.0"
+description = "Config-driven land-use/land-cover (LULC) classification workflows on Google Earth Engine"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+authors = [{ name = "lulc-engine contributors" }]
+keywords = ["lulc", "land-cover", "remote-sensing", "earth-engine", "classification", "gis"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: GIS",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+dependencies = [
+    "earthengine-api>=1.4",
+    "pydantic>=2.7",
+    "typer>=0.12",
+    "pyyaml>=6.0",
+    "jinja2>=3.1",
+    "numpy>=1.26",
+    "pandas>=2.2",
+    "scikit-learn>=1.5",
+    "scipy>=1.14",
+    "matplotlib>=3.9",
+]
+
+[project.optional-dependencies]
+viz = ["geemap>=0.35", "folium>=0.18"]
+local = ["rasterio>=1.4", "geopandas>=1.0"]
+dev = ["pytest>=8.0", "pytest-cov", "ruff>=0.6"]
+
+[project.scripts]
+lulc = "lulc_engine.cli:app"
+
+[project.urls]
+Homepage = "https://github.com/prahaladuk2208-arch/lulc-engine"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/lulc_engine"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B"]
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+# typer's Option-in-default pattern is idiomatic
+"src/lulc_engine/cli.py" = ["B008"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "gee: integration tests that hit the real Google Earth Engine API (opt-in via LULC_GEE_TESTS=1)",
+]

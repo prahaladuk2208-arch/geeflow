@@ -1,0 +1,42 @@
+# Example: 4-class LULC classification in the Sentinel-2 era.
+# Demo AOI: a 15 km buffer on the southwestern slopes of Mount Kenya — chosen only
+# because it has forest, farmland, water and towns in one scene. Replace with your own.
+
+project:
+  name: forest-monitoring-demo
+  gee_project_id: my-gee-project   # <-- change to your GEE-enabled Cloud project
+
+aoi:
+  center_buffer: { lat: -0.15, lon: 37.31, radius_m: 15000 }
+
+time_points: [2019, 2022, 2024]
+
+seasons:
+  - { name: dry, months: [1, 3] }
+  - { name: wet, months: [10, 12] }
+
+classes:
+  0: Forest
+  1: Agriculture
+  2: Water
+  3: Built-up
+
+features:
+  indices: [NDVI, SAVI, EVI, NDMI, NBR, NDWI, NDBI]
+  texture: { enabled: true, band: NIR, metrics: [entropy, contrast], window: 3 }
+  seasonal: { deltas: true, ratios: true, season_values: true }
+
+training:
+  path: training/training_{year}.geojson
+  class_property: class
+  min_polygons_per_class: 3   # demo data is tiny; use >= 15 for real work
+
+classifier:
+  candidates: [RF, GBT, SVM]
+
+postprocess:
+  majority_filter: { enabled: true, kernel: 3 }
+
+export:
+  target: drive
+  folder: LULC_Outputs
