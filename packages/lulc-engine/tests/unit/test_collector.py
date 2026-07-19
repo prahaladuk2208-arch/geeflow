@@ -4,7 +4,7 @@ from lulc_engine.collector import render_collector
 def test_s2_collector_renders(forest_example_config):
     js = render_collector(forest_example_config, 2022)
     assert "COPERNICUS/S2_SR_HARMONIZED" in js
-    assert "ee.Geometry.Point(37.31, -0.15).buffer(15000" in js
+    assert "ee.Geometry.Point(37.05, -0.25).buffer(15000" in js
     # both seasons with correct windows
     assert "'2022-01-01', '2022-03-31'" in js
     assert "'2022-10-01', '2022-12-31'" in js
