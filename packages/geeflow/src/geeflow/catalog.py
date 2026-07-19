@@ -46,29 +46,35 @@ def load_catalog(refresh: bool = False) -> list[dict]:
 def search(query: str, limit: int = 10) -> list[dict]:
     """Search dataset ids/titles/tags/providers. Returns compact result dicts.
 
-    All space-separated terms must match somewhere in the entry (case-insensitive).
+    Case-insensitive ranked match: entries matching more of the space-separated terms
+    rank higher; at least one term must match. (Strict all-terms matching is too
+    brittle — e.g. "surface reflectance" appears as "(SR)" in many titles.)
     """
     terms = [t.lower() for t in query.split() if t]
-    results = []
+    if not terms:
+        return []
+    scored = []
     for entry in load_catalog():
         haystack = " ".join(
             str(entry.get(k, ""))
             for k in ("id", "title", "tags", "provider", "type")
         ).lower()
-        if all(t in haystack for t in terms):
-            results.append(
-                {
-                    "id": entry.get("id"),
-                    "title": entry.get("title"),
-                    "type": entry.get("type"),
-                    "start_date": entry.get("start_date"),
-                    "end_date": entry.get("end_date"),
-                    "provider": entry.get("provider"),
-                }
-            )
-        if len(results) >= limit:
-            break
-    return results
+        score = sum(1 for t in terms if t in haystack)
+        if score > 0:
+            scored.append((score, entry))
+    scored.sort(key=lambda se: -se[0])
+    return [
+        {
+            "id": e.get("id"),
+            "title": e.get("title"),
+            "type": e.get("type"),
+            "start_date": e.get("start_date"),
+            "end_date": e.get("end_date"),
+            "provider": e.get("provider"),
+            "matched_terms": s,
+        }
+        for s, e in scored[:limit]
+    ]
 
 
 def dataset_entry(dataset_id: str) -> dict | None:
