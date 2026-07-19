@@ -1,0 +1,39 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "geeflow"
+version = "0.1.0"
+description = "Google Earth Engine workflows made easy: harmonized multi-sensor composites, indices, exports - plus an MCP server for AI-assisted geospatial analysis"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+authors = [{ name = "geeflow contributors" }]
+keywords = ["earth-engine", "gee", "remote-sensing", "mcp", "composites", "gis"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: GIS",
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "earthengine-api>=1.4",
+    "pydantic>=2.7",
+    "mcp>=1.2",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "ruff>=0.6"]
+
+[project.scripts]
+geeflow-mcp = "geeflow.mcp.server:main"
+
+[project.urls]
+Homepage = "https://github.com/prahaladuk2208-arch/geeflow"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/geeflow"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

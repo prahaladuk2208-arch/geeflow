@@ -1,0 +1,13 @@
+line-length = 100
+target-version = "py310"
+
+[lint]
+select = ["E", "F", "W", "I", "UP", "B"]
+ignore = ["E501"]
+
+[lint.isort]
+known-first-party = ["geeflow", "lulc_engine"]
+
+[lint.per-file-ignores]
+# typer's Option-in-default pattern is idiomatic
+"packages/lulc-engine/src/lulc_engine/cli.py" = ["B008"]

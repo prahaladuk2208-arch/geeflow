@@ -21,8 +21,10 @@ jobs:
       - name: Install
         run: |
           python -m pip install --upgrade pip
-          pip install -e .[dev]
+          pip install -e packages/geeflow[dev] -e packages/lulc-engine[dev]
       - name: Lint
-        run: ruff check src tests
-      - name: Test
-        run: pytest -q
+        run: ruff check packages
+      - name: Test geeflow
+        run: pytest packages/geeflow/tests -q
+      - name: Test lulc-engine
+        run: pytest packages/lulc-engine/tests -q
