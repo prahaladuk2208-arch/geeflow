@@ -15,6 +15,8 @@ CORE_TOOLS = {
     "region_stats",
     "export_composite",
     "export_tasks",
+    "sample_polygons",
+    "execute_code",
 }
 
 LULC_TOOLS = {

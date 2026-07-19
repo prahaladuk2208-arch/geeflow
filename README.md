@@ -98,7 +98,8 @@ ndvi_ready, computed = add_indices(composites["dry"], ["NDVI", "NDMI"], bands)
 ## Design principles
 
 - **Typed everything.** Every MCP tool has a complete JSON schema; a test fails the
-  build if any tool ships an empty one.
+  build if any tool ships an empty one. An `execute_code` escape hatch covers the long
+  tail (any dataset, any analysis) while the typed tools stay the reliable primary path.
 - **No geographic hardcoding.** Any AOI on Earth, any year since 1972; sensor eras,
   scales and cloud masks resolve automatically.
 - **Statistically honest.** Classification accuracy comes from polygon-grouped

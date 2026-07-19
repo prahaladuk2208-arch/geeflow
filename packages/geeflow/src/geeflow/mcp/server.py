@@ -20,8 +20,10 @@ mcp = FastMCP(
     "geeflow",
     instructions=(
         "Google Earth Engine workflows: catalog search, harmonized multi-sensor "
-        "composites, spectral indices, thumbnails, stats and exports. Call gee_init "
-        "first. Composite tools return a composite_id used by later calls."
+        "composites, spectral indices, thumbnails, stats, exports, training-polygon "
+        "sampling. Call gee_init first. Composite tools return a composite_id used by "
+        "later calls. Prefer the typed tools; use execute_code for anything they "
+        "don't cover."
     ),
 )
 
@@ -281,6 +283,104 @@ def export_tasks(limit: int = 10) -> list[dict]:
     from geeflow.tasks import list_tasks
 
     return list_tasks(limit)
+
+
+@mcp.tool()
+def sample_polygons(
+    class_values: list[int],
+    lat: float | None = None,
+    lon: float | None = None,
+    radius_m: float | None = None,
+    aoi_geojson: str | None = None,
+    dataset_id: str = "ESA/WorldCover/v200",
+    band: str = "Map",
+    class_labels: list[str] | None = None,
+    points_per_class: int = 6,
+    polygon_size_m: float = 180,
+    save_path: str | None = None,
+) -> dict:
+    """Auto-generate labeled training polygons from a categorical land-cover product.
+
+    Samples homogeneous patches of the dataset (default: ESA WorldCover 10 m) inside
+    the region and returns small square polygons per class, ready to use as classifier
+    training data. Output class codes are the positions in class_values (0, 1, 2...).
+
+    Example: WorldCover values [10, 40, 80, 50] with labels
+    ["Forest", "Cropland", "Water", "Built-up"] -> classes 0..3.
+
+    Args:
+        class_values: pixel values in the source dataset to sample.
+        lat, lon, radius_m / aoi_geojson: the region (same as build_composite).
+        dataset_id: categorical GEE dataset (image collection) to sample from.
+        band: its categorical band name.
+        class_labels: readable names parallel to class_values.
+        points_per_class: polygons wanted per class.
+        polygon_size_m: side length of the generated squares.
+        save_path: optionally write the GeoJSON to this file path.
+    """
+    from geeflow.sampling import sample_reference_polygons
+
+    region = _resolve_region(lat, lon, radius_m, aoi_geojson)
+    fc = sample_reference_polygons(
+        dataset_id=dataset_id,
+        band=band,
+        class_values=class_values,
+        region=region,
+        class_labels=class_labels,
+        points_per_class=points_per_class,
+        polygon_size_m=polygon_size_m,
+    )
+    counts: dict[str, int] = {}
+    for f in fc["features"]:
+        counts[f["properties"]["label"]] = counts.get(f["properties"]["label"], 0) + 1
+    result: dict = {"polygons_per_class": counts, "warnings": fc.get("warnings", [])}
+    if save_path:
+        with open(save_path, "w", encoding="utf-8") as fh:
+            json.dump({"type": "FeatureCollection", "features": fc["features"]}, fh, indent=2)
+        result["saved_to"] = save_path
+    else:
+        result["geojson"] = {"type": "FeatureCollection", "features": fc["features"]}
+    return result
+
+
+@mcp.tool()
+def execute_code(code: str) -> dict:
+    """Run Python code with the Earth Engine API for anything the typed tools don't cover.
+
+    The escape hatch: full `ee` access for arbitrary datasets and analyses (MODIS,
+    climate data, custom reducers...). Prefer the typed tools when one fits — they are
+    more reliable and their workflows are reproducible.
+
+    The code runs locally in the server process with YOUR Earth Engine credentials.
+    Pre-imported: `ee` (initialized via gee_init), `geeflow`, `json`. To return data,
+    assign to a variable named `result` and/or print(); keep .getInfo() payloads small.
+
+    Example:
+        img = ee.ImageCollection("MODIS/061/MOD11A2").filterDate("2023-01-01", "2023-02-01").mean()
+        result = img.select("LST_Day_1km").reduceRegion(
+            ee.Reducer.mean(), ee.Geometry.Point([37.0, -0.2]).buffer(5000), 1000
+        ).getInfo()
+    """
+    import contextlib
+    import io
+
+    import ee
+
+    import geeflow
+
+    namespace: dict = {"ee": ee, "geeflow": geeflow, "json": json}
+    stdout = io.StringIO()
+    with contextlib.redirect_stdout(stdout):
+        exec(code, namespace)  # noqa: S102 - deliberate: local escape hatch with user's own creds
+
+    output: dict = {"stdout": stdout.getvalue()}
+    if "result" in namespace:
+        value = namespace["result"]
+        if isinstance(value, dict | list | str | int | float | bool) or value is None:
+            output["result"] = value
+        else:
+            output["result"] = repr(value)
+    return output
 
 
 # --------------------------------------------------------------- LULC tools (optional)

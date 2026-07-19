@@ -29,6 +29,8 @@ service-account key). The assistant then starts every session with `gee_init`.
 | `region_stats` | per-band mean/median/minMax/stdDev over the region |
 | `export_composite` | export to Google Drive or an EE asset |
 | `export_tasks` | recent export task states |
+| `sample_polygons` | auto-generate labeled training polygons from a categorical product (default ESA WorldCover) |
+| `execute_code` | escape hatch: run arbitrary Earth Engine Python for anything the typed tools don't cover |
 
 ## LULC tools (registered when lulc-engine is installed)
 
@@ -44,7 +46,13 @@ service-account key). The assistant then starts every session with `gee_init`.
 ## Design principles
 
 - **Typed everything.** Every tool has a complete JSON schema — parameter guessing is
-  a bug, and an included test fails if any tool ships an empty schema.
+  a bug, and an included test fails if any tool ships an empty schema. `execute_code`
+  exists as the escape hatch for the long tail (any dataset, any analysis), but the
+  typed tools are the primary path: they can't produce syntax errors and their
+  workflows stay reproducible.
+- **Local trust model.** `execute_code` runs on your machine with your Earth Engine
+  credentials — the same trust you give any local REPL. Don't expose the server to
+  untrusted clients.
 - **No geographic hardcoding.** Any AOI on Earth (lat/lon+radius or GeoJSON), any year
   since 1972.
 - **Statistically honest.** Classification accuracy comes from polygon-grouped
