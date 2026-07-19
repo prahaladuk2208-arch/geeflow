@@ -34,6 +34,24 @@ def make_gee_classifier(name: str, cfg: LulcConfig):
     raise ValueError(f"unknown classifier {name!r}")
 
 
+def _standardize_stack(stack, feature_cols: list[str], region, scale: int):
+    """Per-band (value - mean) / stdDev using statistics over `region`.
+
+    Mirrors scikit-learn's StandardScaler fit on the training footprint. Applied to the
+    whole stack once, so training sampling and full-image classification see the same
+    transform. Needed for RBF-SVM; harmless but unnecessary for tree models.
+    """
+    import ee
+
+    combined = ee.Reducer.mean().combine(ee.Reducer.stdDev(), sharedInputs=True)
+    stats = stack.reduceRegion(
+        reducer=combined, geometry=region, scale=scale, maxPixels=1e10, bestEffort=True
+    )
+    means = ee.Image.constant([stats.get(f"{b}_mean") for b in feature_cols]).rename(feature_cols)
+    stds = ee.Image.constant([stats.get(f"{b}_stdDev") for b in feature_cols]).rename(feature_cols)
+    return stack.subtract(means).divide(stds.max(1e-6))
+
+
 def train_and_classify(
     feature_stack,
     training_fc,
@@ -44,12 +62,19 @@ def train_and_classify(
     log=print,
 ):
     """Train the winning classifier on all pixels in GEE and classify the stack."""
+    scale = cfg.scale_for_year(year)
     stack_sel = feature_stack.select(feature_cols)
+
+    # SVM (RBF) is scale-sensitive; standardize so the exported map matches the CV winner.
+    # Tree models (RF/GBT) are scale-invariant and left on raw values.
+    if best_name == "SVM":
+        log("Standardizing features for SVM classification...")
+        stack_sel = _standardize_stack(stack_sel, feature_cols, training_fc.geometry(), scale)
 
     training_data = stack_sel.sampleRegions(
         collection=training_fc,
         properties=[cfg.training.class_property],
-        scale=cfg.scale_for_year(year),
+        scale=scale,
     )
 
     classifier = make_gee_classifier(best_name, cfg).train(

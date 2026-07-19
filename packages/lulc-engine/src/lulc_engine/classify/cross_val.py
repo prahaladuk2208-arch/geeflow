@@ -16,6 +16,8 @@ from sklearn.metrics import (
     confusion_matrix,
 )
 from sklearn.model_selection import StratifiedGroupKFold
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 
 from lulc_engine.config.schema import ClassifierConfig
@@ -53,10 +55,15 @@ def _make_classifiers(cfg: ClassifierConfig) -> dict:
             n_estimators=cfg.gbt.trees,
             random_state=cfg.gbt.seed,
         ),
-        "SVM": lambda: SVC(
-            kernel=cfg.svm.kernel.lower(),
-            C=cfg.svm.cost,
-            gamma=cfg.svm.gamma,
+        # RBF-SVM needs standardized features; StandardScaler lives inside the pipeline
+        # so it is fit only on each fold's training split (no leakage into validation).
+        "SVM": lambda: make_pipeline(
+            StandardScaler(),
+            SVC(
+                kernel=cfg.svm.kernel.lower(),
+                C=cfg.svm.cost,
+                gamma=cfg.svm.gamma,
+            ),
         ),
     }
     return {name: factories[name] for name in cfg.candidates}

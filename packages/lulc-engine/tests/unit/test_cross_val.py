@@ -73,3 +73,30 @@ def test_groups_never_split_across_folds():
     skf = StratifiedGroupKFold(n_splits=3, shuffle=True, random_state=42)
     for train_idx, val_idx in skf.split(X, y, groups):
         assert set(groups[train_idx]).isdisjoint(set(groups[val_idx]))
+
+
+def test_svm_is_scaled_pipeline():
+    from sklearn.pipeline import Pipeline
+    from sklearn.preprocessing import StandardScaler
+
+    from lulc_engine.classify.cross_val import _make_classifiers
+
+    factories = _make_classifiers(ClassifierConfig(candidates=["SVM"]))
+    model = factories["SVM"]()
+    assert isinstance(model, Pipeline)
+    assert isinstance(model.named_steps["standardscaler"], StandardScaler)
+
+
+def test_svm_survives_wildly_different_feature_scales():
+    """Regression: an unscaled feature 1000x larger crippled RBF-SVM (~random OA).
+
+    With the in-pipeline StandardScaler, SVM must stay accurate on separable data even
+    when one feature dwarfs the other.
+    """
+    X, y, groups = _synthetic()
+    X = X.copy()
+    X[:, 1] *= 1000.0  # blow up one feature's magnitude
+
+    cfg = ClassifierConfig(candidates=["SVM"], cv={"folds": 3, "seed": 42})
+    results = run_cv(X, y, groups, {0: "A", 1: "B"}, cfg, log=lambda *_: None)
+    assert results["SVM"]["mean_accuracy"] >= 0.9
