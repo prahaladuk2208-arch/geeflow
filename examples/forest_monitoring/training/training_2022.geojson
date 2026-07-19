@@ -1,29 +1,845 @@
 {
   "type": "FeatureCollection",
   "features": [
-    { "type": "Feature", "properties": { "class": 0, "label": "Forest" },
-      "geometry": { "type": "Polygon", "coordinates": [[[37.235, -0.145], [37.241, -0.145], [37.241, -0.139], [37.235, -0.139], [37.235, -0.145]]] } },
-    { "type": "Feature", "properties": { "class": 0, "label": "Forest" },
-      "geometry": { "type": "Polygon", "coordinates": [[[37.262, -0.108], [37.268, -0.108], [37.268, -0.102], [37.262, -0.102], [37.262, -0.108]]] } },
-    { "type": "Feature", "properties": { "class": 0, "label": "Forest" },
-      "geometry": { "type": "Polygon", "coordinates": [[[37.301, -0.062], [37.307, -0.062], [37.307, -0.056], [37.301, -0.056], [37.301, -0.062]]] } },
-    { "type": "Feature", "properties": { "class": 1, "label": "Agriculture" },
-      "geometry": { "type": "Polygon", "coordinates": [[[37.205, -0.245], [37.211, -0.245], [37.211, -0.239], [37.205, -0.239], [37.205, -0.245]]] } },
-    { "type": "Feature", "properties": { "class": 1, "label": "Agriculture" },
-      "geometry": { "type": "Polygon", "coordinates": [[[37.248, -0.262], [37.254, -0.262], [37.254, -0.256], [37.248, -0.256], [37.248, -0.262]]] } },
-    { "type": "Feature", "properties": { "class": 1, "label": "Agriculture" },
-      "geometry": { "type": "Polygon", "coordinates": [[[37.352, -0.238], [37.358, -0.238], [37.358, -0.232], [37.352, -0.232], [37.352, -0.238]]] } },
-    { "type": "Feature", "properties": { "class": 2, "label": "Water" },
-      "geometry": { "type": "Polygon", "coordinates": [[[37.404, -0.156], [37.408, -0.156], [37.408, -0.152], [37.404, -0.152], [37.404, -0.156]]] } },
-    { "type": "Feature", "properties": { "class": 2, "label": "Water" },
-      "geometry": { "type": "Polygon", "coordinates": [[[37.298, -0.199], [37.301, -0.199], [37.301, -0.196], [37.298, -0.196], [37.298, -0.199]]] } },
-    { "type": "Feature", "properties": { "class": 2, "label": "Water" },
-      "geometry": { "type": "Polygon", "coordinates": [[[37.365, -0.091], [37.368, -0.091], [37.368, -0.088], [37.365, -0.088], [37.365, -0.091]]] } },
-    { "type": "Feature", "properties": { "class": 3, "label": "Built-up" },
-      "geometry": { "type": "Polygon", "coordinates": [[[37.278, -0.272], [37.284, -0.272], [37.284, -0.266], [37.278, -0.266], [37.278, -0.272]]] } },
-    { "type": "Feature", "properties": { "class": 3, "label": "Built-up" },
-      "geometry": { "type": "Polygon", "coordinates": [[[37.322, -0.284], [37.328, -0.284], [37.328, -0.278], [37.322, -0.278], [37.322, -0.284]]] } },
-    { "type": "Feature", "properties": { "class": 3, "label": "Built-up" },
-      "geometry": { "type": "Polygon", "coordinates": [[[37.196, -0.178], [37.202, -0.178], [37.202, -0.172], [37.196, -0.172], [37.196, -0.178]]] } }
+    {
+      "type": "Feature",
+      "properties": {
+        "class": 0,
+        "label": "Forest",
+        "source": "ESA WorldCover v200 (2021)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              37.16099,
+              -0.23502
+            ],
+            [
+              37.16179,
+              -0.23502
+            ],
+            [
+              37.16179,
+              -0.23422
+            ],
+            [
+              37.16099,
+              -0.23422
+            ],
+            [
+              37.16099,
+              -0.23502
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "class": 0,
+        "label": "Forest",
+        "source": "ESA WorldCover v200 (2021)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              37.10826,
+              -0.14483
+            ],
+            [
+              37.10906,
+              -0.14483
+            ],
+            [
+              37.10906,
+              -0.14403
+            ],
+            [
+              37.10826,
+              -0.14403
+            ],
+            [
+              37.10826,
+              -0.14483
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "class": 0,
+        "label": "Forest",
+        "source": "ESA WorldCover v200 (2021)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              37.12532,
+              -0.32557
+            ],
+            [
+              37.12612,
+              -0.32557
+            ],
+            [
+              37.12612,
+              -0.32477
+            ],
+            [
+              37.12532,
+              -0.32477
+            ],
+            [
+              37.12532,
+              -0.32557
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "class": 0,
+        "label": "Forest",
+        "source": "ESA WorldCover v200 (2021)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              37.0875,
+              -0.16522
+            ],
+            [
+              37.0883,
+              -0.16522
+            ],
+            [
+              37.0883,
+              -0.16442
+            ],
+            [
+              37.0875,
+              -0.16442
+            ],
+            [
+              37.0875,
+              -0.16522
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "class": 0,
+        "label": "Forest",
+        "source": "ESA WorldCover v200 (2021)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              37.1626,
+              -0.2228
+            ],
+            [
+              37.1634,
+              -0.2228
+            ],
+            [
+              37.1634,
+              -0.222
+            ],
+            [
+              37.1626,
+              -0.222
+            ],
+            [
+              37.1626,
+              -0.2228
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "class": 0,
+        "label": "Forest",
+        "source": "ESA WorldCover v200 (2021)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              37.14509,
+              -0.32988
+            ],
+            [
+              37.14589,
+              -0.32988
+            ],
+            [
+              37.14589,
+              -0.32908
+            ],
+            [
+              37.14509,
+              -0.32908
+            ],
+            [
+              37.14509,
+              -0.32988
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "class": 1,
+        "label": "Agriculture",
+        "source": "ESA WorldCover v200 (2021)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.92365,
+              -0.25128
+            ],
+            [
+              36.92445,
+              -0.25128
+            ],
+            [
+              36.92445,
+              -0.25048
+            ],
+            [
+              36.92365,
+              -0.25048
+            ],
+            [
+              36.92365,
+              -0.25128
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "class": 1,
+        "label": "Agriculture",
+        "source": "ESA WorldCover v200 (2021)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              37.08149,
+              -0.26251
+            ],
+            [
+              37.08229,
+              -0.26251
+            ],
+            [
+              37.08229,
+              -0.26171
+            ],
+            [
+              37.08149,
+              -0.26171
+            ],
+            [
+              37.08149,
+              -0.26251
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "class": 1,
+        "label": "Agriculture",
+        "source": "ESA WorldCover v200 (2021)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.97701,
+              -0.18534
+            ],
+            [
+              36.97781,
+              -0.18534
+            ],
+            [
+              36.97781,
+              -0.18454
+            ],
+            [
+              36.97701,
+              -0.18454
+            ],
+            [
+              36.97701,
+              -0.18534
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "class": 1,
+        "label": "Agriculture",
+        "source": "ESA WorldCover v200 (2021)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              37.0186,
+              -0.29098
+            ],
+            [
+              37.0194,
+              -0.29098
+            ],
+            [
+              37.0194,
+              -0.29018
+            ],
+            [
+              37.0186,
+              -0.29018
+            ],
+            [
+              37.0186,
+              -0.29098
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "class": 1,
+        "label": "Agriculture",
+        "source": "ESA WorldCover v200 (2021)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.97611,
+              -0.19271
+            ],
+            [
+              36.97691,
+              -0.19271
+            ],
+            [
+              36.97691,
+              -0.19191
+            ],
+            [
+              36.97611,
+              -0.19191
+            ],
+            [
+              36.97611,
+              -0.19271
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "class": 1,
+        "label": "Agriculture",
+        "source": "ESA WorldCover v200 (2021)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              37.0504,
+              -0.21391
+            ],
+            [
+              37.0512,
+              -0.21391
+            ],
+            [
+              37.0512,
+              -0.21311
+            ],
+            [
+              37.0504,
+              -0.21311
+            ],
+            [
+              37.0504,
+              -0.21391
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "class": 2,
+        "label": "Water",
+        "source": "ESA WorldCover v200 (2021)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.96902,
+              -0.30356
+            ],
+            [
+              36.96982,
+              -0.30356
+            ],
+            [
+              36.96982,
+              -0.30276
+            ],
+            [
+              36.96902,
+              -0.30276
+            ],
+            [
+              36.96902,
+              -0.30356
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "class": 2,
+        "label": "Water",
+        "source": "ESA WorldCover v200 (2021)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.96992,
+              -0.30275
+            ],
+            [
+              36.97072,
+              -0.30275
+            ],
+            [
+              36.97072,
+              -0.30195
+            ],
+            [
+              36.96992,
+              -0.30195
+            ],
+            [
+              36.96992,
+              -0.30275
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "class": 2,
+        "label": "Water",
+        "source": "ESA WorldCover v200 (2021)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              37.07376,
+              -0.17367
+            ],
+            [
+              37.07456,
+              -0.17367
+            ],
+            [
+              37.07456,
+              -0.17287
+            ],
+            [
+              37.07376,
+              -0.17287
+            ],
+            [
+              37.07376,
+              -0.17367
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "class": 2,
+        "label": "Water",
+        "source": "ESA WorldCover v200 (2021)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.96857,
+              -0.30428
+            ],
+            [
+              36.96937,
+              -0.30428
+            ],
+            [
+              36.96937,
+              -0.30348
+            ],
+            [
+              36.96857,
+              -0.30348
+            ],
+            [
+              36.96857,
+              -0.30428
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "class": 2,
+        "label": "Water",
+        "source": "ESA WorldCover v200 (2021)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.99489,
+              -0.28847
+            ],
+            [
+              36.99569,
+              -0.28847
+            ],
+            [
+              36.99569,
+              -0.28767
+            ],
+            [
+              36.99489,
+              -0.28767
+            ],
+            [
+              36.99489,
+              -0.28847
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "class": 2,
+        "label": "Water",
+        "source": "ESA WorldCover v200 (2021)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              37.12281,
+              -0.35521
+            ],
+            [
+              37.12361,
+              -0.35521
+            ],
+            [
+              37.12361,
+              -0.35441
+            ],
+            [
+              37.12281,
+              -0.35441
+            ],
+            [
+              37.12281,
+              -0.35521
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "class": 3,
+        "label": "Built-up",
+        "source": "ESA WorldCover v200 (2021)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              37.01762,
+              -0.16217
+            ],
+            [
+              37.01842,
+              -0.16217
+            ],
+            [
+              37.01842,
+              -0.16137
+            ],
+            [
+              37.01762,
+              -0.16137
+            ],
+            [
+              37.01762,
+              -0.16217
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "class": 3,
+        "label": "Built-up",
+        "source": "ESA WorldCover v200 (2021)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              37.00001,
+              -0.35962
+            ],
+            [
+              37.00081,
+              -0.35962
+            ],
+            [
+              37.00081,
+              -0.35882
+            ],
+            [
+              37.00001,
+              -0.35882
+            ],
+            [
+              37.00001,
+              -0.35962
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "class": 3,
+        "label": "Built-up",
+        "source": "ESA WorldCover v200 (2021)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.99938,
+              -0.35998
+            ],
+            [
+              37.00018,
+              -0.35998
+            ],
+            [
+              37.00018,
+              -0.35918
+            ],
+            [
+              36.99938,
+              -0.35918
+            ],
+            [
+              36.99938,
+              -0.35998
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "class": 3,
+        "label": "Built-up",
+        "source": "ESA WorldCover v200 (2021)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              37.00118,
+              -0.36042
+            ],
+            [
+              37.00198,
+              -0.36042
+            ],
+            [
+              37.00198,
+              -0.35962
+            ],
+            [
+              37.00118,
+              -0.35962
+            ],
+            [
+              37.00118,
+              -0.36042
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "class": 3,
+        "label": "Built-up",
+        "source": "ESA WorldCover v200 (2021)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              37.01699,
+              -0.16235
+            ],
+            [
+              37.01779,
+              -0.16235
+            ],
+            [
+              37.01779,
+              -0.16155
+            ],
+            [
+              37.01699,
+              -0.16155
+            ],
+            [
+              37.01699,
+              -0.16235
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "class": 3,
+        "label": "Built-up",
+        "source": "ESA WorldCover v200 (2021)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              37.02112,
+              -0.17295
+            ],
+            [
+              37.02192,
+              -0.17295
+            ],
+            [
+              37.02192,
+              -0.17215
+            ],
+            [
+              37.02112,
+              -0.17215
+            ],
+            [
+              37.02112,
+              -0.17295
+            ]
+          ]
+        ]
+      }
+    }
   ]
 }

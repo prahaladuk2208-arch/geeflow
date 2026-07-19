@@ -1,13 +1,14 @@
 # Example: 4-class LULC classification in the Sentinel-2 era.
-# Demo AOI: a 15 km buffer on the southwestern slopes of Mount Kenya — chosen only
-# because it has forest, farmland, water and towns in one scene. Replace with your own.
+# Demo AOI: a 15 km buffer on the southwestern slopes of Mount Kenya (Naro Moru side) —
+# chosen only because it has forest, farmland, water and towns in one scene. Replace
+# with your own.
 
 project:
   name: forest-monitoring-demo
   gee_project_id: my-gee-project   # <-- change to your GEE-enabled Cloud project
 
 aoi:
-  center_buffer: { lat: -0.15, lon: 37.31, radius_m: 15000 }
+  center_buffer: { lat: -0.25, lon: 37.05, radius_m: 15000 }
 
 time_points: [2019, 2022, 2024]
 
