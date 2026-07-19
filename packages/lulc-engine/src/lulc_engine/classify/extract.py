@@ -6,6 +6,27 @@ import pandas as pd
 
 from lulc_engine.config.schema import LulcConfig
 
+_PAGE_SIZE = 3000
+
+
+def _iter_feature_pages(collection, page_size: int = _PAGE_SIZE):
+    """Yield feature dicts from an ee.FeatureCollection via the paginated
+    computeFeatures API.
+
+    A plain .getInfo() aborts at 5000 elements; pagination has no such cap, so large
+    training sets (many polygons at 10 m) extract fine.
+    """
+    import ee
+
+    request = {"expression": collection, "pageSize": page_size}
+    while True:
+        page = ee.data.computeFeatures(request)
+        yield from page.get("features", [])
+        token = page.get("nextPageToken")
+        if not token:
+            return
+        request = {"expression": collection, "pageSize": page_size, "pageToken": token}
+
 
 def extract_features(feature_stack, training_fc, cfg: LulcConfig, year: int, log=print) -> pd.DataFrame:
     """sampleRegions over the training collection -> per-pixel DataFrame.
@@ -20,8 +41,7 @@ def extract_features(feature_stack, training_fc, cfg: LulcConfig, year: int, log
         geometries=False,
     )
 
-    data = sampled.getInfo()
-    rows = [feat["properties"] for feat in data["features"]]
+    rows = [feat["properties"] for feat in _iter_feature_pages(sampled)]
     df = pd.DataFrame(rows)
     if df.empty:
         raise RuntimeError(
